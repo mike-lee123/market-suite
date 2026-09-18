@@ -71,10 +71,11 @@ export function buildPayoffFigure(prices, payoffs, spot, breakevens, strategyNam
 
 export function buildEquityCurveFigure(dates, equityCurve, trades) {
   const dateIndex = new Map(dates.map((d, i) => [d, i]));
-  const entryX = trades.map((t) => t.entry_date);
-  const entryY = trades.map((t) => equityCurve[dateIndex.get(t.entry_date)]);
-  const exitX = trades.map((t) => t.exit_date);
-  const exitY = trades.map((t) => equityCurve[dateIndex.get(t.exit_date)]);
+  const validTrades = trades.filter((t) => dateIndex.has(t.entry_date) && dateIndex.has(t.exit_date));
+  const entryX = validTrades.map((t) => t.entry_date);
+  const entryY = validTrades.map((t) => equityCurve[dateIndex.get(t.entry_date)]);
+  const exitX = validTrades.map((t) => t.exit_date);
+  const exitY = validTrades.map((t) => equityCurve[dateIndex.get(t.exit_date)]);
 
   const data = [
     { type: "scatter", mode: "lines", x: dates, y: equityCurve, name: "權益曲線", line: { color: "#3867d6", width: 2 } },

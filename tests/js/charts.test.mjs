@@ -59,3 +59,17 @@ test("equity curve figure plots the curve and marks trade entry/exit points", ()
   assert.ok(fig.data.some((t) => t.name === "進場"));
   assert.ok(fig.data.some((t) => t.name === "出場"));
 });
+
+test("equity curve figure silently drops a trade whose date isn't in the series instead of plotting undefined", () => {
+  const trades = [
+    { entry_date: "d1", exit_date: "d3" },
+    { entry_date: "missing-date", exit_date: "d2" },
+  ];
+  const fig = buildEquityCurveFigure(["d0", "d1", "d2", "d3"], [100000, 101000, 99000, 103000], trades);
+  const entry = fig.data.find((t) => t.name === "進場");
+  const exit = fig.data.find((t) => t.name === "出場");
+  assert.equal(entry.y.length, 1);
+  assert.equal(exit.y.length, 1);
+  assert.ok(!entry.y.includes(undefined));
+  assert.ok(!exit.y.includes(undefined));
+});
