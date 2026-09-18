@@ -40,7 +40,7 @@ export function buildCandlestickFigure(ohlc, { chartType, maSeries, bbands, subI
   if (subIndicator) {
     layout.yaxis2 = { domain: [0, 0.25], title: subIndicator.name };
     for (const [key, values] of Object.entries(subIndicator.series)) {
-      data.push({ type: "scatter", mode: "lines", x: ohlc.dates, y: values, name: subIndicator.name === "MACD" ? key.toUpperCase() : subIndicator.name, xaxis: "x", yaxis: "y2" });
+      data.push({ type: "scatter", mode: "lines", x: ohlc.dates, y: values, name: key.toUpperCase(), xaxis: "x", yaxis: "y2" });
     }
   }
 
