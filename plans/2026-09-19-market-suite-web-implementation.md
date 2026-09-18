@@ -19,6 +19,7 @@
 - `dashboard_modular/`, `dashboard_v1878/`, `research/`, `.claude/` are not to be modified.
 - Data update is manual: running `python tools/fetch_data.py` regenerates `docs/data/`; there is no CI/scheduled job in this plan.
 - A root `package.json` with `{"type": "module"}` is permitted (needed so Node can `import` the same `.js` files the browser loads as ES modules) — it carries no dependencies and is never `npm install`ed by the site itself.
+- This repo has untracked bystander content outside this plan's scope (the existing `dashboard_modular/`, `dashboard_v1878/`, `research/`, `.claude/`, a `.docx` file). Every commit in this plan must `git add` only the exact files the task lists — never `git add -A` or `git add .` — so this bystander content is never swept into a commit.
 
 ---
 
@@ -2141,8 +2142,13 @@ If a real bug or layout break turns up, fix it in the relevant file from Tasks 1
 
 - [ ] **Step 4: Commit (only if Step 3 changed anything)**
 
+Stage only the specific files you changed in Step 3 (they will all be under
+`docs/`, `tools/`, or `tests/` — never use `git add -A`/`git add .`, since
+this repo has unrelated untracked directories like `research/` and the
+existing Streamlit dashboards that must not be swept into this branch).
+
 ```bash
-git add -A
+git add docs/... tools/... tests/...   # replace with the exact paths you touched
 git commit -m "Fix issues found during end-to-end walkthrough"
 ```
 
