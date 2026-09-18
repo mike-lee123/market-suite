@@ -501,7 +501,7 @@ export function diagnoseMACD(hist) {
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `node --test tests/js/indicators.test.mjs`
-Expected: all pass (10 tests total from Tasks 2+3).
+Expected: all pass (11 tests total from Tasks 2+3).
 
 - [ ] **Step 5: Commit**
 
@@ -1579,6 +1579,7 @@ git commit -m "Fetch 5y history for popular TW stocks and macro benchmarks via y
 **Interfaces:**
 - Consumes: `manifest.json`/`{symbol}.json` (Task 11), `sma`/`bollingerBands`/`rsi`/`kd`/`macd`/`bias`/`diagnose*` (Tasks 2-3), `buildCandlestickFigure` (Task 8). Uses the global `Plotly` from the CDN `<script>` tag in `index.html`.
 - Produces: `initTechnicalTab(manifest)` (called from the app's bootstrap `DOMContentLoaded` handler), no other module imports this — it is a leaf wired directly to the DOM.
+- **Replaces, not appends:** `docs/js/app.js` currently holds Task 1's placeholder stub (a `console.log` plus the tab-button click handlers). Step 3 below is the complete new contents of the file, including its own copy of the tab-button click handlers and the final `bootstrap();` call — overwrite the whole file with it rather than appending after the stub.
 
 - [ ] **Step 1: Fill in `#tab-technical` markup in `docs/index.html`**
 
@@ -1794,6 +1795,7 @@ git commit -m "Wire up the technical analysis tab against real data"
 **Interfaces:**
 - Consumes: `blackScholes`, `calculateStrategyPayoff` (Tasks 4-5), `buildPayoffFigure` (Task 9).
 - Produces: `initOptionsTab()`, called from `bootstrap()`.
+- **Edits `bootstrap()` in place:** Task 12 left `docs/js/app.js` with an `async function bootstrap() { ... }` that calls `renderTechnicalTab(manifest)`. Step 3 below shows the new, complete body of that same function — edit the existing declaration to add the `initOptionsTab();` call; do not add a second `bootstrap` function.
 
 - [ ] **Step 1: Fill in `#tab-options` markup in `docs/index.html`**
 
@@ -1974,6 +1976,7 @@ git commit -m "Wire up the options strategy center tab"
 **Interfaces:**
 - Consumes: `runBacktest` (Task 7), `buildEquityCurveFigure` (Task 9), the same `manifest`/`loadSymbolData` helpers from Task 12.
 - Produces: `initBacktestTab(manifest)`, called from `bootstrap()`.
+- **Edits `bootstrap()` in place again:** same rule as Task 13 — add the `initBacktestTab(manifest);` call into the existing `bootstrap()` function body, don't declare a new one.
 
 - [ ] **Step 1: Fill in `#tab-backtest` markup in `docs/index.html`**
 
@@ -2127,7 +2130,7 @@ git commit -m "Wire up the backtest lab tab"
 - [ ] **Step 1: Run every automated test in one pass**
 
 Run: `node --test tests/js/`
-Expected: all JS tests pass (indicators, options, backtest, charts — ~29 tests across Tasks 2-9).
+Expected: all JS tests pass (indicators, options, backtest, charts — 35 tests across Tasks 2-9).
 
 Run: `python -m unittest discover -s tests/python -v`
 Expected: all Python tests pass (Task 10 — 3 tests).
