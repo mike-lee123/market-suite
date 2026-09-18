@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 
 def history_to_symbol_json(symbol: str, name: str, history) -> dict:
-    df = history.dropna(subset=["Close"])
+    df = history.dropna(subset=["Open", "High", "Low", "Close", "Volume"])
     return {
         "symbol": symbol,
         "name": name,
