@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-09-18T23:18:14Z",
+  "symbols": [
+    {
+      "symbol": "2330.TW",
+      "name": "台積電",
+      "category": "tw_stock",
+      "sector": "半導體",
+      "file": "2330.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2454.TW",
+      "name": "聯發科",
+      "category": "tw_stock",
+      "sector": "半導體",
+      "file": "2454.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2317.TW",
+      "name": "鴻海",
+      "category": "tw_stock",
+      "sector": "電子代工",
+      "file": "2317.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2308.TW",
+      "name": "台達電",
+      "category": "tw_stock",
+      "sector": "電源供應",
+      "file": "2308.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2382.TW",
+      "name": "廣達",
+      "category": "tw_stock",
+      "sector": "電子代工",
+      "file": "2382.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2412.TW",
+      "name": "中華電",
+      "category": "tw_stock",
+      "sector": "電信",
+      "file": "2412.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2881.TW",
+      "name": "富邦金",
+      "category": "tw_stock",
+      "sector": "金融",
+      "file": "2881.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2882.TW",
+      "name": "國泰金",
+      "category": "tw_stock",
+      "sector": "金融",
+      "file": "2882.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2891.TW",
+      "name": "中信金",
+      "category": "tw_stock",
+      "sector": "金融",
+      "file": "2891.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "3711.TW",
+      "name": "日月光投控",
+      "category": "tw_stock",
+      "sector": "封測",
+      "file": "3711.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2303.TW",
+      "name": "聯電",
+      "category": "tw_stock",
+      "sector": "半導體",
+      "file": "2303.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "1301.TW",
+      "name": "台塑",
+      "category": "tw_stock",
+      "sector": "塑化",
+      "file": "1301.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2603.TW",
+      "name": "長榮",
+      "category": "tw_stock",
+      "sector": "航運",
+      "file": "2603.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "2609.TW",
+      "name": "陽明",
+      "category": "tw_stock",
+      "sector": "航運",
+      "file": "2609.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "0050.TW",
+      "name": "元大台灣50",
+      "category": "tw_stock",
+      "sector": "ETF",
+      "file": "0050.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-17"
+    },
+    {
+      "symbol": "0056.TW",
+      "name": "元大高股息",
+      "category": "tw_stock",
+      "sector": "ETF",
+      "file": "0056.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-17"
+    },
+    {
+      "symbol": "00878.TW",
+      "name": "國泰永續高股息",
+      "category": "tw_stock",
+      "sector": "ETF",
+      "file": "00878.TW.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-17"
+    },
+    {
+      "symbol": "^TWII",
+      "name": "台股加權指數",
+      "category": "macro",
+      "sector": "台股大盤",
+      "file": "^TWII.json",
+      "start_date": "2021-09-22",
+      "end_date": "2026-09-17"
+    },
+    {
+      "symbol": "^DJI",
+      "name": "道瓊工業指數",
+      "category": "macro",
+      "sector": "美股",
+      "file": "^DJI.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "^GSPC",
+      "name": "S&P 500",
+      "category": "macro",
+      "sector": "美股",
+      "file": "^GSPC.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "^IXIC",
+      "name": "那斯達克指數",
+      "category": "macro",
+      "sector": "美股",
+      "file": "^IXIC.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "^SOX",
+      "name": "費城半導體指數",
+      "category": "macro",
+      "sector": "美股",
+      "file": "^SOX.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "^KS11",
+      "name": "韓國 KOSPI",
+      "category": "macro",
+      "sector": "亞股",
+      "file": "^KS11.json",
+      "start_date": "2021-09-23",
+      "end_date": "2026-09-17"
+    },
+    {
+      "symbol": "TSM",
+      "name": "台積電 ADR",
+      "category": "macro",
+      "sector": "美股ADR",
+      "file": "TSM.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "TWD=X",
+      "name": "美元兌台幣匯率",
+      "category": "macro",
+      "sector": "匯率",
+      "file": "TWD=X.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    },
+    {
+      "symbol": "CL=F",
+      "name": "原油期貨",
+      "category": "macro",
+      "sector": "原物料",
+      "file": "CL=F.json",
+      "start_date": "2021-09-20",
+      "end_date": "2026-09-18"
+    }
+  ]
+}
