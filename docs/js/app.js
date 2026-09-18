@@ -132,32 +132,26 @@ function renderGreeksTable() {
 }
 
 const PAYOFF_PARAM_FIELDS = {
-  long_call: [["k1", "履約價 K"], ["prem1", "權利金"]],
-  long_put: [["k1", "履約價 K"], ["prem1", "權利金"]],
-  bull_call_spread: [["k1", "買進履約價 K1"], ["k2", "賣出履約價 K2"], ["prem1", "買進權利金"], ["prem2", "賣出權利金"]],
-  bear_put_spread: [["k1", "買進履約價 K1"], ["k2", "賣出履約價 K2"], ["prem1", "買進權利金"], ["prem2", "賣出權利金"]],
-  bull_put_spread: [["k1", "賣出履約價 K1"], ["k2", "買進履約價 K2"], ["prem1", "賣出權利金"], ["prem2", "買進權利金"]],
-  iron_condor: [["put_sell", "賣出Put"], ["put_buy", "買進Put"], ["call_sell", "賣出Call"], ["call_buy", "買進Call"],
-                ["prem_put_s", "賣Put權利金"], ["prem_put_b", "買Put權利金"], ["prem_call_s", "賣Call權利金"], ["prem_call_b", "買Call權利金"]],
-  long_straddle: [["k1", "履約價 K"], ["prem1", "Call權利金"], ["prem2", "Put權利金"]],
-};
-
-const PAYOFF_DEFAULTS = {
-  k1: 17000, k2: 17200, prem1: 60, prem2: 30,
-  put_sell: 16800, put_buy: 16600, call_sell: 17200, call_buy: 17400,
-  prem_put_s: 40, prem_put_b: 15, prem_call_s: 40, prem_call_b: 15,
+  long_call: [["k1", "履約價 K", 17000], ["prem1", "權利金", 50]],
+  long_put: [["k1", "履約價 K", 17000], ["prem1", "權利金", 50]],
+  bull_call_spread: [["k1", "買進履約價 K1", 17000], ["k2", "賣出履約價 K2", 17200], ["prem1", "買進權利金", 80], ["prem2", "賣出權利金", 30]],
+  bear_put_spread: [["k1", "買進履約價 K1", 17200], ["k2", "賣出履約價 K2", 17000], ["prem1", "買進權利金", 80], ["prem2", "賣出權利金", 30]],
+  bull_put_spread: [["k1", "賣出履約價 K1", 17000], ["k2", "買進履約價 K2", 16800], ["prem1", "賣出權利金", 60], ["prem2", "買進權利金", 20]],
+  iron_condor: [["put_sell", "賣出Put", 16800], ["put_buy", "買進Put", 16600], ["call_sell", "賣出Call", 17200], ["call_buy", "買進Call", 17400],
+                ["prem_put_s", "賣Put權利金", 40], ["prem_put_b", "買Put權利金", 15], ["prem_call_s", "賣Call權利金", 40], ["prem_call_b", "買Call權利金", 15]],
+  long_straddle: [["k1", "履約價 K", 17000], ["prem1", "Call權利金", 45], ["prem2", "Put權利金", 45]],
 };
 
 function renderPayoffParamInputs(strategyKey) {
   const container = document.getElementById("payoff-params");
   container.innerHTML = "";
-  for (const [field, label] of PAYOFF_PARAM_FIELDS[strategyKey]) {
+  for (const [field, label, defaultValue] of PAYOFF_PARAM_FIELDS[strategyKey]) {
     const wrapper = document.createElement("label");
     wrapper.textContent = label + " ";
     const input = document.createElement("input");
     input.type = "number";
     input.dataset.field = field;
-    input.value = PAYOFF_DEFAULTS[field];
+    input.value = defaultValue;
     input.className = "payoff-param";
     wrapper.appendChild(input);
     container.appendChild(wrapper);
