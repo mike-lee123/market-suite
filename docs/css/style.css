@@ -43,3 +43,7 @@ main { padding: 24px; }
 }
 
 .app-footer { padding: 16px 24px; color: #888; font-size: 0.8rem; text-align: center; }
+
+.controls-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 12px; }
+.controls-row label { font-size: 0.85rem; display: flex; align-items: center; gap: 4px; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
