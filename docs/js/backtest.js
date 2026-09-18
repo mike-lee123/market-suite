@@ -1,3 +1,5 @@
+import { sma, rsi as calcRsi, macd as calcMacd, bollingerBands } from "./indicators.js";
+
 export function simulateTrades(closes, dates, signals, initialCapital) {
   const trades = [];
   const equityCurve = new Array(closes.length);
@@ -91,4 +93,54 @@ export function computeMetrics(closes, equityCurve, trades, initialCapital) {
     total_trades: trades.length,
     profit_factor: profitFactor,
   };
+}
+
+function dualMaSignals(closes, { fast_period = 5, slow_period = 20 } = {}) {
+  const fast = sma(closes, fast_period);
+  const slow = sma(closes, slow_period);
+  return closes.map((_, i) => (fast[i] !== null && slow[i] !== null && fast[i] > slow[i] ? 1 : 0));
+}
+
+function rsiSignals(closes, { rsi_period = 14, buy_threshold = 30, sell_threshold = 70 } = {}) {
+  const values = calcRsi(closes, rsi_period);
+  const signals = new Array(closes.length).fill(0);
+  let holding = false;
+  for (let i = 0; i < closes.length; i++) {
+    if (!holding && values[i] !== null && values[i] < buy_threshold) holding = true;
+    else if (holding && values[i] !== null && values[i] > sell_threshold) holding = false;
+    signals[i] = holding ? 1 : 0;
+  }
+  return signals;
+}
+
+function macdSignals(closes) {
+  const { dif, dea } = calcMacd(closes);
+  return closes.map((_, i) => (dif[i] > dea[i] ? 1 : 0));
+}
+
+function bollingerSignals(closes) {
+  const { lower, middle } = bollingerBands(closes, 20, 2);
+  const signals = new Array(closes.length).fill(0);
+  let holding = false;
+  for (let i = 0; i < closes.length; i++) {
+    if (lower[i] === null) { signals[i] = 0; continue; }
+    if (!holding && closes[i] <= lower[i]) holding = true;
+    else if (holding && closes[i] >= middle[i]) holding = false;
+    signals[i] = holding ? 1 : 0;
+  }
+  return signals;
+}
+
+export function runBacktest(ohlc, strategyKey, params, initialCapital) {
+  const { dates, close } = ohlc;
+  let signals;
+  if (strategyKey === "dual_ma") signals = dualMaSignals(close, params);
+  else if (strategyKey === "rsi") signals = rsiSignals(close, params);
+  else if (strategyKey === "macd") signals = macdSignals(close);
+  else if (strategyKey === "bollinger") signals = bollingerSignals(close);
+  else throw new Error(`未知回測策略: ${strategyKey}`);
+
+  const { equityCurve, trades } = simulateTrades(close, dates, signals, initialCapital);
+  const metrics = computeMetrics(close, equityCurve, trades, initialCapital);
+  return { metrics, equityCurve, trades };
 }
