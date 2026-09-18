@@ -41,3 +41,96 @@ export function blackScholes(spot, strike, dteDays, riskFreeRate, iv, optionType
 
   return { price, delta, gamma, thetaPerDay, vegaPer1Pct };
 }
+
+const POINT_VALUE = 50;
+
+function priceRange(spot) {
+  const span = spot * 0.1;
+  const step = span / 100;
+  const prices = [];
+  for (let p = spot - span; p <= spot + span; p += step) prices.push(Math.round(p));
+  return prices;
+}
+
+function findBreakevens(prices, payoffs) {
+  const breakevens = [];
+  for (let i = 1; i < payoffs.length; i++) {
+    if ((payoffs[i - 1] < 0 && payoffs[i] >= 0) || (payoffs[i - 1] > 0 && payoffs[i] <= 0)) {
+      // Linear interpolation to find more precise breakeven
+      const p1 = prices[i - 1];
+      const p2 = prices[i];
+      const y1 = payoffs[i - 1];
+      const y2 = payoffs[i];
+      const be = p1 - y1 * (p2 - p1) / (y2 - y1);
+      breakevens.push(be);
+    }
+  }
+  return breakevens;
+}
+
+export function calculateStrategyPayoff(strategyKey, spot, params) {
+  const prices = priceRange(spot);
+  let payoffs;
+  let maxProfit;
+  let maxLoss;
+  let summary;
+
+  const callPayoff = (price, k) => Math.max(price - k, 0);
+  const putPayoff = (price, k) => Math.max(k - price, 0);
+
+  if (strategyKey === "long_call") {
+    payoffs = prices.map((p) => (callPayoff(p, params.k1) - params.prem1) * POINT_VALUE);
+    maxProfit = "無限";
+    maxLoss = params.prem1 * POINT_VALUE;
+    summary = `買進履約價 ${params.k1} 的買權,付出權利金 ${params.prem1} 點`;
+  } else if (strategyKey === "long_put") {
+    payoffs = prices.map((p) => (putPayoff(p, params.k1) - params.prem1) * POINT_VALUE);
+    maxProfit = (params.k1 - params.prem1) * POINT_VALUE;
+    maxLoss = params.prem1 * POINT_VALUE;
+    summary = `買進履約價 ${params.k1} 的賣權,付出權利金 ${params.prem1} 點`;
+  } else if (strategyKey === "bull_call_spread") {
+    payoffs = prices.map((p) =>
+      (callPayoff(p, params.k1) - callPayoff(p, params.k2) - (params.prem1 - params.prem2)) * POINT_VALUE
+    );
+    maxLoss = (params.prem1 - params.prem2) * POINT_VALUE;
+    maxProfit = ((params.k2 - params.k1) - (params.prem1 - params.prem2)) * POINT_VALUE;
+    summary = `買進 ${params.k1} 買權、賣出 ${params.k2} 買權`;
+  } else if (strategyKey === "bear_put_spread") {
+    payoffs = prices.map((p) =>
+      (putPayoff(p, params.k1) - putPayoff(p, params.k2) - (params.prem1 - params.prem2)) * POINT_VALUE
+    );
+    maxLoss = (params.prem1 - params.prem2) * POINT_VALUE;
+    maxProfit = ((params.k1 - params.k2) - (params.prem1 - params.prem2)) * POINT_VALUE;
+    summary = `買進 ${params.k1} 賣權、賣出 ${params.k2} 賣權`;
+  } else if (strategyKey === "bull_put_spread") {
+    payoffs = prices.map((p) =>
+      (params.prem1 - params.prem2 - putPayoff(p, params.k1) + putPayoff(p, params.k2)) * POINT_VALUE
+    );
+    maxProfit = (params.prem1 - params.prem2) * POINT_VALUE;
+    maxLoss = ((params.k1 - params.k2) - (params.prem1 - params.prem2)) * POINT_VALUE;
+    summary = `賣出 ${params.k1} 賣權、買進保護 ${params.k2} 賣權`;
+  } else if (strategyKey === "iron_condor") {
+    const netCredit = (params.prem_put_s - params.prem_put_b) + (params.prem_call_s - params.prem_call_b);
+    payoffs = prices.map((p) => {
+      const putLeg = -putPayoff(p, params.put_sell) + putPayoff(p, params.put_buy);
+      const callLeg = -callPayoff(p, params.call_sell) + callPayoff(p, params.call_buy);
+      return (netCredit + putLeg + callLeg) * POINT_VALUE;
+    });
+    maxProfit = netCredit * POINT_VALUE;
+    const putWing = params.put_sell - params.put_buy;
+    const callWing = params.call_buy - params.call_sell;
+    maxLoss = (Math.max(putWing, callWing) - netCredit) * POINT_VALUE;
+    summary = `賣出 ${params.put_sell}/${params.call_sell} 履約價、兩側買進保護 ${params.put_buy}/${params.call_buy}`;
+  } else if (strategyKey === "long_straddle") {
+    payoffs = prices.map((p) =>
+      (callPayoff(p, params.k1) + putPayoff(p, params.k1) - params.prem1 - params.prem2) * POINT_VALUE
+    );
+    maxProfit = "無限";
+    maxLoss = (params.prem1 + params.prem2) * POINT_VALUE;
+    summary = `同時買進履約價 ${params.k1} 的買權與賣權`;
+  } else {
+    throw new Error(`未知策略: ${strategyKey}`);
+  }
+
+  return { prices, payoffs, maxProfit, maxLoss, breakevens: findBreakevens(prices, payoffs), summary };
+}
