@@ -47,3 +47,8 @@ main { padding: 24px; }
 .controls-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 12px; }
 .controls-row label { font-size: 0.85rem; display: flex; align-items: center; gap: 4px; }
 .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
+
+.data-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+.data-table th, .data-table td { border: 1px solid #e2e8f0; padding: 6px 10px; text-align: left; font-size: 0.85rem; }
+.data-table th { background: #f1f2f6; }
+.sub-header-title { font-size: 1.1rem; font-weight: 700; margin: 20px 0 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }

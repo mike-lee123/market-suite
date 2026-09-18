@@ -69,7 +69,35 @@
       <div id="tech-chart"></div>
       <div id="tech-diagnosis" class="metric-grid"></div>
     </section>
-    <section id="tab-options" class="tab-panel"></section>
+    <section id="tab-options" class="tab-panel">
+      <div class="sub-header-title">🧮 Black-Scholes 定價與 Greeks 計算機</div>
+      <div class="controls-row">
+        <label>現價 S <input type="number" id="bs-spot" value="17000" step="10"></label>
+        <label>履約價 K <input type="number" id="bs-strike" value="17000" step="100"></label>
+        <label>到期天數 <input type="number" id="bs-dte" value="5" min="1"></label>
+        <label>IV (%) <input type="number" id="bs-iv" value="18" step="0.5"></label>
+        <label>無風險利率 r (%) <input type="number" id="bs-r" value="1.5" step="0.1"></label>
+      </div>
+      <table id="bs-table" class="data-table"></table>
+
+      <div class="sub-header-title">📈 策略到期損益模擬圖</div>
+      <div class="controls-row">
+        <label>策略
+          <select id="payoff-strategy">
+            <option value="long_call">Long Call (買進買權)</option>
+            <option value="long_put">Long Put (買進賣權)</option>
+            <option value="bull_call_spread">Bull Call Spread (買權牛市價差)</option>
+            <option value="bear_put_spread">Bear Put Spread (賣權熊市價差)</option>
+            <option value="bull_put_spread">Bull Put Spread (賣權牛市信用價差)</option>
+            <option value="iron_condor">Iron Condor (鐵鷹價差)</option>
+            <option value="long_straddle">Long Straddle (買進跨式)</option>
+          </select>
+        </label>
+      </div>
+      <div id="payoff-params" class="controls-row"></div>
+      <div id="payoff-summary" class="metric-grid"></div>
+      <div id="payoff-chart"></div>
+    </section>
     <section id="tab-backtest" class="tab-panel"></section>
   </main>
 

@@ -1,5 +1,6 @@
 import { sma, bollingerBands, rsi, kd, macd, bias, diagnoseTrend, diagnoseKD, diagnoseRSI, diagnoseMACD } from "./indicators.js";
-import { buildCandlestickFigure } from "./charts.js";
+import { buildCandlestickFigure, buildPayoffFigure } from "./charts.js";
+import { blackScholes, calculateStrategyPayoff } from "./options.js";
 
 const PERIOD_DAYS = { "1mo": 22, "3mo": 66, "6mo": 132, "1y": 252, "2y": 504, "5y": 100000 };
 
@@ -108,9 +109,107 @@ async function renderTechnicalTab(manifest) {
   await redraw();
 }
 
+function renderGreeksTable() {
+  const spot = Number(document.getElementById("bs-spot").value);
+  const strike = Number(document.getElementById("bs-strike").value);
+  const dte = Number(document.getElementById("bs-dte").value);
+  const iv = Number(document.getElementById("bs-iv").value) / 100;
+  const r = Number(document.getElementById("bs-r").value) / 100;
+
+  const call = blackScholes(spot, strike, dte, r, iv, "call");
+  const put = blackScholes(spot, strike, dte, r, iv, "put");
+
+  const rows = [
+    ["理論權利金", `${call.price.toFixed(2)} 點`, `${put.price.toFixed(2)} 點`],
+    ["Delta", call.delta.toFixed(3), put.delta.toFixed(3)],
+    ["Gamma", call.gamma.toFixed(5), put.gamma.toFixed(5)],
+    ["Theta (每日)", call.thetaPerDay.toFixed(2), put.thetaPerDay.toFixed(2)],
+    ["Vega (每1% IV)", call.vegaPer1Pct.toFixed(2), put.vegaPer1Pct.toFixed(2)],
+  ];
+  document.getElementById("bs-table").innerHTML =
+    "<tr><th>指標</th><th>Call</th><th>Put</th></tr>" +
+    rows.map(([label, c, p]) => `<tr><td>${label}</td><td>${c}</td><td>${p}</td></tr>`).join("");
+}
+
+const PAYOFF_PARAM_FIELDS = {
+  long_call: [["k1", "履約價 K"], ["prem1", "權利金"]],
+  long_put: [["k1", "履約價 K"], ["prem1", "權利金"]],
+  bull_call_spread: [["k1", "買進履約價 K1"], ["k2", "賣出履約價 K2"], ["prem1", "買進權利金"], ["prem2", "賣出權利金"]],
+  bear_put_spread: [["k1", "買進履約價 K1"], ["k2", "賣出履約價 K2"], ["prem1", "買進權利金"], ["prem2", "賣出權利金"]],
+  bull_put_spread: [["k1", "賣出履約價 K1"], ["k2", "買進履約價 K2"], ["prem1", "賣出權利金"], ["prem2", "買進權利金"]],
+  iron_condor: [["put_sell", "賣出Put"], ["put_buy", "買進Put"], ["call_sell", "賣出Call"], ["call_buy", "買進Call"],
+                ["prem_put_s", "賣Put權利金"], ["prem_put_b", "買Put權利金"], ["prem_call_s", "賣Call權利金"], ["prem_call_b", "買Call權利金"]],
+  long_straddle: [["k1", "履約價 K"], ["prem1", "Call權利金"], ["prem2", "Put權利金"]],
+};
+
+const PAYOFF_DEFAULTS = {
+  k1: 17000, k2: 17200, prem1: 60, prem2: 30,
+  put_sell: 16800, put_buy: 16600, call_sell: 17200, call_buy: 17400,
+  prem_put_s: 40, prem_put_b: 15, prem_call_s: 40, prem_call_b: 15,
+};
+
+function renderPayoffParamInputs(strategyKey) {
+  const container = document.getElementById("payoff-params");
+  container.innerHTML = "";
+  for (const [field, label] of PAYOFF_PARAM_FIELDS[strategyKey]) {
+    const wrapper = document.createElement("label");
+    wrapper.textContent = label + " ";
+    const input = document.createElement("input");
+    input.type = "number";
+    input.dataset.field = field;
+    input.value = PAYOFF_DEFAULTS[field];
+    input.className = "payoff-param";
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  }
+}
+
+function readPayoffParams() {
+  const params = {};
+  document.querySelectorAll(".payoff-param").forEach((input) => {
+    params[input.dataset.field] = Number(input.value);
+  });
+  return params;
+}
+
+function redrawPayoff() {
+  const strategyKey = document.getElementById("payoff-strategy").value;
+  const params = readPayoffParams();
+  const spot = params.k1 ?? params.put_sell ?? 17000;
+  const result = calculateStrategyPayoff(strategyKey, spot, params);
+
+  document.getElementById("payoff-summary").innerHTML = `
+    <div class="metric-card">策略摘要<br>${result.summary}</div>
+    <div class="metric-card">最大獲利<br><strong>${result.maxProfit === "無限" ? "無限" : result.maxProfit.toLocaleString()}</strong></div>
+    <div class="metric-card">最大風險<br><strong>${result.maxLoss === "無限" ? "無限" : result.maxLoss.toLocaleString()}</strong></div>
+    <div class="metric-card">損益兩平點<br>${result.breakevens.map((b) => b.toFixed(0)).join(", ") || "—"}</div>
+  `;
+
+  const fig = buildPayoffFigure(result.prices, result.payoffs, spot, result.breakevens, strategyKey);
+  Plotly.newPlot("payoff-chart", fig.data, fig.layout, { responsive: true });
+}
+
+function initOptionsTab() {
+  renderGreeksTable();
+  ["bs-spot", "bs-strike", "bs-dte", "bs-iv", "bs-r"].forEach((id) =>
+    document.getElementById(id).addEventListener("input", renderGreeksTable)
+  );
+
+  const strategySelect = document.getElementById("payoff-strategy");
+  strategySelect.addEventListener("change", () => {
+    renderPayoffParamInputs(strategySelect.value);
+    redrawPayoff();
+  });
+  document.getElementById("payoff-params").addEventListener("input", redrawPayoff);
+
+  renderPayoffParamInputs(strategySelect.value);
+  redrawPayoff();
+}
+
 async function bootstrap() {
   const manifest = await loadManifest();
   await renderTechnicalTab(manifest);
+  initOptionsTab();
 }
 
 document.querySelectorAll(".tab-btn").forEach((btn) => {
