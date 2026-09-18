@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildCandlestickFigure } from "../../docs/js/charts.js";
+import { buildCandlestickFigure, buildPayoffFigure, buildEquityCurveFigure } from "../../docs/js/charts.js";
 
 const ohlc = {
   dates: ["d0", "d1", "d2"],
@@ -42,4 +42,20 @@ test("moving averages and sub-indicator each add their own trace", () => {
   assert.ok(fig.data.some((t) => t.name === "MA5"));
   assert.ok(fig.data.some((t) => t.name === "RSI"));
   assert.ok(fig.layout.grid || fig.layout.yaxis2); // sub-indicator needs its own axis/row
+});
+
+test("payoff figure marks the spot price with a vertical line", () => {
+  const fig = buildPayoffFigure([90, 100, 110], [-500, 0, 500], 100, [100], "Long Call");
+  assert.ok(fig.layout.shapes.some((s) => s.x0 === 100));
+  assert.ok(fig.data.some((t) => t.name === "損益"));
+});
+
+test("equity curve figure plots the curve and marks trade entry/exit points", () => {
+  const trades = [{ entry_date: "d1", exit_date: "d3" }];
+  const fig = buildEquityCurveFigure(["d0", "d1", "d2", "d3"], [100000, 101000, 99000, 103000], trades);
+  const curve = fig.data.find((t) => t.name === "權益曲線");
+  assert.ok(curve);
+  assert.equal(curve.y.length, 4);
+  assert.ok(fig.data.some((t) => t.name === "進場"));
+  assert.ok(fig.data.some((t) => t.name === "出場"));
 });

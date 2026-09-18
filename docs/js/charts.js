@@ -46,3 +46,47 @@ export function buildCandlestickFigure(ohlc, { chartType, maSeries, bbands, subI
 
   return { data, layout };
 }
+
+export function buildPayoffFigure(prices, payoffs, spot, breakevens, strategyName) {
+  const data = [
+    { type: "scatter", mode: "lines", x: prices, y: payoffs, name: "損益", line: { color: "#3867d6", width: 2 }, fill: "tozeroy" },
+  ];
+  const shapes = [
+    { type: "line", x0: spot, x1: spot, y0: Math.min(...payoffs), y1: Math.max(...payoffs), line: { color: "#2c3e50", dash: "dash" } },
+    { type: "line", x0: Math.min(...prices), x1: Math.max(...prices), y0: 0, y1: 0, line: { color: "#747d8c", width: 1 } },
+  ];
+  for (const be of breakevens) {
+    shapes.push({ type: "line", x0: be, x1: be, y0: Math.min(...payoffs), y1: Math.max(...payoffs), line: { color: "#eb3b5a", dash: "dot" } });
+  }
+  const layout = {
+    title: `${strategyName} 到期損益圖`,
+    height: 420,
+    xaxis: { title: "標的價格" },
+    yaxis: { title: "損益 (NTD)" },
+    shapes,
+    margin: { l: 50, r: 20, t: 50, b: 40 },
+  };
+  return { data, layout };
+}
+
+export function buildEquityCurveFigure(dates, equityCurve, trades) {
+  const dateIndex = new Map(dates.map((d, i) => [d, i]));
+  const entryX = trades.map((t) => t.entry_date);
+  const entryY = trades.map((t) => equityCurve[dateIndex.get(t.entry_date)]);
+  const exitX = trades.map((t) => t.exit_date);
+  const exitY = trades.map((t) => equityCurve[dateIndex.get(t.exit_date)]);
+
+  const data = [
+    { type: "scatter", mode: "lines", x: dates, y: equityCurve, name: "權益曲線", line: { color: "#3867d6", width: 2 } },
+    { type: "scatter", mode: "markers", x: entryX, y: entryY, name: "進場", marker: { color: "#2ed573", size: 9, symbol: "triangle-up" } },
+    { type: "scatter", mode: "markers", x: exitX, y: exitY, name: "出場", marker: { color: "#ff4757", size: 9, symbol: "triangle-down" } },
+  ];
+  const layout = {
+    height: 420,
+    xaxis: { title: "日期" },
+    yaxis: { title: "帳戶權益 (NTD)" },
+    margin: { l: 60, r: 20, t: 30, b: 40 },
+    legend: { orientation: "h" },
+  };
+  return { data, layout };
+}
