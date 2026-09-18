@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台股與選擇權分析工具(純前端版)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>📊 台股技術分析 / 選擇權 / 回測工具</h1>
+    <p class="subtitle">純前端靜態版 · 資料為建置時快照,非即時行情</p>
+  </header>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="tab-technical">📈 技術分析</button>
+    <button class="tab-btn" data-tab="tab-options">🎯 選擇權策略中心</button>
+    <button class="tab-btn" data-tab="tab-backtest">🧪 回測實驗室</button>
+  </nav>
+
+  <main>
+    <section id="tab-technical" class="tab-panel active"></section>
+    <section id="tab-options" class="tab-panel"></section>
+    <section id="tab-backtest" class="tab-panel"></section>
+  </main>
+
+  <footer class="app-footer">
+    <p>資料來源:Yahoo Finance(yfinance)· 僅供量化分析與學術研究參考,不構成投資建議。</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

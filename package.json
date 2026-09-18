@@ -1,0 +1,6 @@
+{
+  "name": "market-suite-web",
+  "private": true,
+  "type": "module",
+  "description": "Static frontend + data tooling for market-suite (not shipped, dev/test only)"
+}
