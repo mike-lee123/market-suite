@@ -80,7 +80,11 @@ def main():
         for item in group:
             symbol, name, sector = item["symbol"], item["name"], item["sector"]
             print(f"抓取 {symbol} ({name}) ...")
-            history = fetch_symbol_history(symbol)
+            try:
+                history = fetch_symbol_history(symbol)
+            except Exception as e:
+                print(f"  ⚠️ 抓取失敗,略過 {symbol}: {e}")
+                continue
             if history.empty:
                 print(f"  ⚠️ 無資料,略過 {symbol}")
                 continue
