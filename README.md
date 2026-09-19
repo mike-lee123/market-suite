@@ -72,12 +72,20 @@ export MARKET_SUITE_ROOT=/path/to/market-suite
    git branch -M main
    git push -u origin main
    ```
+   > ⚠️ `git branch -M main` 會把你「目前所在」的分支強制改名為 `main`。如果本機已經有一個
+   > 內容不同的 `main` 分支,這個指令會直接覆蓋掉它。不確定的話先執行 `git branch` 確認目前
+   > 所在分支與本機是否已有 `main`。
 3. 到 repo 的 Settings → Pages:
    - Source 選 **Deploy from a branch**
    - Branch 選 **main**,資料夾選 **/docs**
    - 儲存後等 1-2 分鐘,頁面會顯示發布網址(`https://<帳號>.github.io/<repo名稱>/`)。
 
 ### 之後更新資料
+
+> 第一次執行 `tools/fetch_data.py` 前,需要先安裝依賴(只需做一次):
+> ```bash
+> pip install yfinance pandas
+> ```
 
 ```bash
 python tools/fetch_data.py   # 重新抓最新歷史股價,覆蓋 docs/data/*.json
@@ -96,3 +104,13 @@ python -m http.server 8000 --directory docs
 ```
 
 純靜態檔案,不需要 npm install 或任何建置步驟。
+
+### 執行測試
+
+```bash
+node --test "tests/js/**/*.test.mjs"
+python -m unittest discover -s tests/python -v
+```
+
+> Windows 上不加引號的 `node --test tests/js/` 不會找到任何測試(這是 Node.js 目錄探索的
+> 已知行為差異,不是本專案的問題),務必用上面加了引號的 glob 寫法。
