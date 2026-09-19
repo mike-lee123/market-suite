@@ -47,6 +47,7 @@ const POINT_VALUE = 50;
 function priceRange(spot) {
   const span = spot * 0.1;
   const step = span / 100;
+  if (!(step > 0)) return [];
   const prices = [];
   for (let p = spot - span; p <= spot + span; p += step) prices.push(Math.round(p));
   return prices;

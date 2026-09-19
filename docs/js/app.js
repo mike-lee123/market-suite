@@ -15,14 +15,21 @@ async function loadSymbolData(file) {
   return res.json();
 }
 
-function sliceByPeriod(symbolData, periodKey) {
+function periodStartIndex(symbolData, periodKey) {
   const n = PERIOD_DAYS[periodKey] ?? symbolData.dates.length;
-  const start = Math.max(0, symbolData.dates.length - n);
+  return Math.max(0, symbolData.dates.length - n);
+}
+
+function sliceRaw(symbolData, start) {
   const pick = (arr) => arr.slice(start);
   return {
     dates: pick(symbolData.dates), open: pick(symbolData.open), high: pick(symbolData.high),
     low: pick(symbolData.low), close: pick(symbolData.close), volume: pick(symbolData.volume),
   };
+}
+
+function sliceSeries(series, start) {
+  return Object.fromEntries(Object.entries(series).map(([key, values]) => [key, values.slice(start)]));
 }
 
 function buildSubIndicator(name, ohlc) {
@@ -48,14 +55,18 @@ function renderMetrics(ohlc) {
   `;
 }
 
-function renderDiagnosis(ohlc) {
-  const i = ohlc.close.length - 1;
-  const ma5 = sma(ohlc.close, 5)[i];
-  const ma20 = sma(ohlc.close, 20)[i];
-  const ma60 = sma(ohlc.close, 60)[i];
-  const { k, d } = kd(ohlc.high, ohlc.low, ohlc.close, 9);
-  const rsiSeries = rsi(ohlc.close, 6);
-  const { hist } = macd(ohlc.close);
+function renderDiagnosis(symbolData) {
+  // Always diagnose "today's" signal from the FULL history, regardless of the
+  // chart's currently-selected display period — indicators like MACD/KD/RSI
+  // need the full lead-in window to converge, and the diagnosis should not
+  // change just because the user zoomed the chart to a shorter window.
+  const i = symbolData.close.length - 1;
+  const ma5 = sma(symbolData.close, 5)[i];
+  const ma20 = sma(symbolData.close, 20)[i];
+  const ma60 = sma(symbolData.close, 60)[i];
+  const { k, d } = kd(symbolData.high, symbolData.low, symbolData.close, 9);
+  const rsiSeries = rsi(symbolData.close, 6);
+  const { hist } = macd(symbolData.close);
   const el = document.getElementById("tech-diagnosis");
   el.innerHTML = `
     <div class="metric-card">均線趨勢<br>${ma5 && ma20 && ma60 ? diagnoseTrend(ma5, ma20, ma60) : "資料不足"}</div>
@@ -76,13 +87,24 @@ async function renderTechnicalTab(manifest) {
   async function redraw() {
     const entry = manifest.symbols.find((s) => s.symbol === symbolSelect.value);
     const symbolData = await loadSymbolData(entry.file);
-    const ohlc = sliceByPeriod(symbolData, periodSelect.value);
+    const start = periodStartIndex(symbolData, periodSelect.value);
+    const ohlc = sliceRaw(symbolData, start);
 
+    // Compute indicators on the FULL history first (so EMAs/KD/RSI have a
+    // proper lead-in to converge), then slice the results down to the
+    // selected display window. Computing them directly on the sliced window
+    // can flip sign for short periods (e.g. MACD on a 22-bar 1-month window).
     const maPeriods = Array.from(document.querySelectorAll(".tech-ma:checked")).map((el) => Number(el.value));
-    const maSeries = maPeriods.map((period) => ({ period, values: sma(ohlc.close, period) }));
-    const bbands = bbandsCheckbox.checked ? bollingerBands(ohlc.close, 20, 2) : null;
+    const maSeriesFull = maPeriods.map((period) => ({ period, values: sma(symbolData.close, period) }));
+    const bbandsFull = bbandsCheckbox.checked ? bollingerBands(symbolData.close, 20, 2) : null;
     const subName = subIndicatorSelect.value;
-    const subIndicator = subName === "NONE" ? null : buildSubIndicator(subName, ohlc);
+    const subIndicatorFull = subName === "NONE" ? null : buildSubIndicator(subName, symbolData);
+
+    const maSeries = maSeriesFull.map((m) => ({ period: m.period, values: m.values.slice(start) }));
+    const bbands = bbandsFull ? sliceSeries(bbandsFull, start) : null;
+    const subIndicator = subIndicatorFull
+      ? { name: subIndicatorFull.name, series: sliceSeries(subIndicatorFull.series, start) }
+      : null;
 
     const fig = buildCandlestickFigure(ohlc, {
       chartType: chartTypeSelect.value, maSeries, bbands, subIndicator,
@@ -91,7 +113,7 @@ async function renderTechnicalTab(manifest) {
     Plotly.newPlot("tech-chart", fig.data, fig.layout, { responsive: true });
 
     renderMetrics(ohlc);
-    renderDiagnosis(ohlc);
+    renderDiagnosis(symbolData);
   }
 
   manifest.symbols.forEach((s) => {
@@ -116,6 +138,11 @@ function renderGreeksTable() {
   const dte = Number(document.getElementById("bs-dte").value);
   const iv = Number(document.getElementById("bs-iv").value) / 100;
   const r = Number(document.getElementById("bs-r").value) / 100;
+
+  if (!(spot > 0) || !(strike > 0) || !(dte > 0) || !(iv > 0)) {
+    document.getElementById("bs-table").innerHTML = "<tr><td>請輸入有效的正數參數(現價、履約價、到期天數、IV 皆須大於 0)</td></tr>";
+    return;
+  }
 
   const call = blackScholes(spot, strike, dte, r, iv, "call");
   const put = blackScholes(spot, strike, dte, r, iv, "put");
@@ -168,10 +195,17 @@ function readPayoffParams() {
 }
 
 function redrawPayoff() {
-  const strategyKey = document.getElementById("payoff-strategy").value;
+  const strategySelect = document.getElementById("payoff-strategy");
+  const strategyKey = strategySelect.value;
   const params = readPayoffParams();
-  const spot = params.k1 ?? params.put_sell ?? 17000;
+  const rawSpot = params.k1 ?? params.put_sell;
+  const spot = Number.isFinite(rawSpot) && rawSpot > 0 ? rawSpot : 17000;
   const result = calculateStrategyPayoff(strategyKey, spot, params);
+
+  if (result.prices.length === 0) {
+    document.getElementById("payoff-chart").innerHTML = "<p>參數不合理,請輸入正數的履約價與現價。</p>";
+    return;
+  }
 
   document.getElementById("payoff-summary").innerHTML = `
     <div class="metric-card">策略摘要<br>${result.summary}</div>
@@ -180,7 +214,8 @@ function redrawPayoff() {
     <div class="metric-card">損益兩平點<br>${result.breakevens.map((b) => b.toFixed(0)).join(", ") || "—"}</div>
   `;
 
-  const fig = buildPayoffFigure(result.prices, result.payoffs, spot, result.breakevens, strategyKey);
+  const strategyLabel = strategySelect.options[strategySelect.selectedIndex].text;
+  const fig = buildPayoffFigure(result.prices, result.payoffs, spot, result.breakevens, strategyLabel);
   Plotly.newPlot("payoff-chart", fig.data, fig.layout, { responsive: true });
 }
 
