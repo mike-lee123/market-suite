@@ -96,6 +96,18 @@ git push
 
 push 後數十秒到一分鐘,GitHub Pages 會自動用新資料重新部署,不需要在 Settings 重新設定。
 
+### 自動每日更新資料(GitHub Actions)
+
+repo 裡已經有 `.github/workflows/update-data.yml`,一旦這個 repo 被 push 到 GitHub 上,就會:
+
+- 每天 UTC 21:00(台灣時間隔天早上 05:00,台股與美股當天都已收盤)自動執行 `tools/fetch_data.py`
+- 如果抓到的資料有變動,自動 commit + push 回 `main`,GitHub Pages 隨即自動重新部署
+- 如果沒有變動(例如遇到假日),不會產生多餘的 commit
+
+不需要額外設定任何密鑰,使用 GitHub 內建的權限即可。想立刻手動觸發一次,可以到 repo 的 **Actions** 分頁,選「Update market data」→「Run workflow」。
+
+上面「之後更新資料」的手動步驟仍然有效,適合你想立即更新、或想在本機測試 `fetch_data.py` 改動時使用。
+
 ### 本機開發測試
 
 ```bash

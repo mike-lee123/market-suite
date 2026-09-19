@@ -1,0 +1,40 @@
+name: Update market data
+
+on:
+  schedule:
+    # 21:00 UTC = 05:00 next day Taipei time — after both TW and US markets close
+    - cron: "0 21 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+
+      - name: Fetch latest market data
+        run: python tools/fetch_data.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- docs/data; then
+            echo "No data changes, skipping commit."
+          else
+            git add docs/data
+            git commit -m "Update market data snapshot ($(date -u +%Y-%m-%d))"
+            git push
+          fi
