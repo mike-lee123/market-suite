@@ -98,7 +98,26 @@
       <div id="payoff-summary" class="metric-grid"></div>
       <div id="payoff-chart"></div>
     </section>
-    <section id="tab-backtest" class="tab-panel"></section>
+    <section id="tab-backtest" class="tab-panel">
+      <div class="controls-row">
+        <label>標的 <select id="bt-symbol"></select></label>
+        <label>策略
+          <select id="bt-strategy">
+            <option value="dual_ma">雙均線黃金/死亡交叉</option>
+            <option value="rsi">RSI 超賣反彈與超買停利</option>
+            <option value="macd">MACD 柱狀與快慢線交叉</option>
+            <option value="bollinger">布林通道破底翻逆勢策略</option>
+          </select>
+        </label>
+        <label>初始本金 <input type="number" id="bt-capital" value="100000" step="10000"></label>
+      </div>
+      <div id="bt-params" class="controls-row"></div>
+      <button id="bt-run">🔍 執行回測</button>
+
+      <div id="bt-metrics" class="metric-grid"></div>
+      <div id="bt-chart"></div>
+      <table id="bt-trades" class="data-table"></table>
+    </section>
   </main>
 
   <footer class="app-footer">

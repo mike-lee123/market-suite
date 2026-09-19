@@ -1,6 +1,7 @@
 import { sma, bollingerBands, rsi, kd, macd, bias, diagnoseTrend, diagnoseKD, diagnoseRSI, diagnoseMACD } from "./indicators.js";
-import { buildCandlestickFigure, buildPayoffFigure } from "./charts.js";
+import { buildCandlestickFigure, buildPayoffFigure, buildEquityCurveFigure } from "./charts.js";
 import { blackScholes, calculateStrategyPayoff } from "./options.js";
+import { runBacktest } from "./backtest.js";
 
 const PERIOD_DAYS = { "1mo": 22, "3mo": 66, "6mo": 132, "1y": 252, "2y": 504, "5y": 100000 };
 
@@ -200,10 +201,97 @@ function initOptionsTab() {
   redrawPayoff();
 }
 
+const BT_PARAM_FIELDS = {
+  dual_ma: [["fast_period", "快線週期", 5], ["slow_period", "慢線週期", 20]],
+  rsi: [["rsi_period", "RSI週期", 14], ["buy_threshold", "超賣買進閾值", 30], ["sell_threshold", "超買賣出閾值", 70]],
+  macd: [],
+  bollinger: [],
+};
+
+function renderBtParamInputs(strategyKey) {
+  const container = document.getElementById("bt-params");
+  container.innerHTML = "";
+  for (const [field, label, defaultValue] of BT_PARAM_FIELDS[strategyKey]) {
+    const wrapper = document.createElement("label");
+    wrapper.textContent = label + " ";
+    const input = document.createElement("input");
+    input.type = "number";
+    input.dataset.field = field;
+    input.value = defaultValue;
+    input.className = "bt-param";
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  }
+}
+
+function readBtParams() {
+  const params = {};
+  document.querySelectorAll(".bt-param").forEach((input) => {
+    params[input.dataset.field] = Number(input.value);
+  });
+  return params;
+}
+
+function renderBacktestResult(ohlc, result) {
+  const m = result.metrics;
+  document.getElementById("bt-metrics").innerHTML = `
+    <div class="metric-card">策略總報酬率<br><strong>${m.total_return_pct.toFixed(2)}%</strong> (買入持有: ${m.buy_hold_return_pct.toFixed(2)}%)</div>
+    <div class="metric-card">年化報酬率 CAGR<br><strong>${m.cagr_pct.toFixed(2)}%</strong></div>
+    <div class="metric-card">最大回撤 MDD<br><strong>${m.max_drawdown_pct.toFixed(2)}%</strong></div>
+    <div class="metric-card">夏普比率<br><strong>${m.sharpe_ratio.toFixed(2)}</strong></div>
+    <div class="metric-card">勝率<br><strong>${m.win_rate_pct.toFixed(1)}%</strong> (${m.total_trades} 筆)</div>
+    <div class="metric-card">獲利因子<br><strong>${Number.isFinite(m.profit_factor) ? m.profit_factor.toFixed(2) : "∞"}</strong></div>
+  `;
+
+  const fig = buildEquityCurveFigure(ohlc.dates, result.equityCurve, result.trades);
+  Plotly.newPlot("bt-chart", fig.data, fig.layout, { responsive: true });
+
+  const rows = result.trades.map((t) => `
+    <tr>
+      <td>${t.entry_date}</td><td>${t.entry_price.toFixed(2)}</td>
+      <td>${t.exit_date}</td><td>${t.exit_price.toFixed(2)}</td>
+      <td>${t.return_pct >= 0 ? "+" : ""}${t.return_pct.toFixed(2)}%</td>
+      <td>${t.holding_days} 天</td><td>${t.is_win ? "🟢 獲利" : "🔴 虧損"}</td>
+    </tr>`).join("");
+  document.getElementById("bt-trades").innerHTML =
+    "<tr><th>進場日期</th><th>進場價</th><th>出場日期</th><th>出場價</th><th>單筆報酬</th><th>持股天數</th><th>結果</th></tr>" +
+    (rows || "<tr><td colspan=\"7\">在此期間內策略未觸發任何完整進出場交易</td></tr>");
+}
+
+async function runBacktestNow(manifest) {
+  const entry = manifest.symbols.find((s) => s.symbol === document.getElementById("bt-symbol").value);
+  const symbolData = await loadSymbolData(entry.file);
+  const strategyKey = document.getElementById("bt-strategy").value;
+  const params = readBtParams();
+  const capital = Number(document.getElementById("bt-capital").value);
+  const result = runBacktest(symbolData, strategyKey, params, capital);
+  renderBacktestResult(symbolData, result);
+}
+
+function initBacktestTab(manifest) {
+  const symbolSelect = document.getElementById("bt-symbol");
+  manifest.symbols
+    .filter((s) => s.category === "tw_stock")
+    .forEach((s) => {
+      const opt = document.createElement("option");
+      opt.value = s.symbol;
+      opt.textContent = `${s.name} (${s.symbol})`;
+      symbolSelect.appendChild(opt);
+    });
+  symbolSelect.value = "2330.TW";
+
+  const strategySelect = document.getElementById("bt-strategy");
+  renderBtParamInputs(strategySelect.value);
+  strategySelect.addEventListener("change", () => renderBtParamInputs(strategySelect.value));
+
+  document.getElementById("bt-run").addEventListener("click", () => runBacktestNow(manifest));
+}
+
 async function bootstrap() {
   const manifest = await loadManifest();
   await renderTechnicalTab(manifest);
   initOptionsTab();
+  initBacktestTab(manifest);
 }
 
 document.querySelectorAll(".tab-btn").forEach((btn) => {
