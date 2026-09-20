@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T22:45:19Z",
+  "generated_at": "2026-09-20T23:04:35Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -8,7 +8,7 @@
       "sector": "半導體",
       "file": "2330.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-21"
     },
     {
       "symbol": "2454.TW",
@@ -17,7 +17,7 @@
       "sector": "半導體",
       "file": "2454.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-21"
     },
     {
       "symbol": "2317.TW",
@@ -26,7 +26,7 @@
       "sector": "電子代工",
       "file": "2317.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2308.TW",
@@ -35,7 +35,7 @@
       "sector": "電源供應",
       "file": "2308.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2382.TW",
@@ -44,7 +44,7 @@
       "sector": "電子代工",
       "file": "2382.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2412.TW",
@@ -53,7 +53,7 @@
       "sector": "電信",
       "file": "2412.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2881.TW",
@@ -62,7 +62,7 @@
       "sector": "金融",
       "file": "2881.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-21"
     },
     {
       "symbol": "2882.TW",
@@ -71,7 +71,7 @@
       "sector": "金融",
       "file": "2882.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2891.TW",
@@ -80,7 +80,7 @@
       "sector": "金融",
       "file": "2891.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "3711.TW",
@@ -89,7 +89,7 @@
       "sector": "封測",
       "file": "3711.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2303.TW",
@@ -98,7 +98,7 @@
       "sector": "半導體",
       "file": "2303.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-21"
     },
     {
       "symbol": "1301.TW",
@@ -107,7 +107,7 @@
       "sector": "塑化",
       "file": "1301.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2603.TW",
@@ -116,7 +116,7 @@
       "sector": "航運",
       "file": "2603.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "2609.TW",
@@ -125,7 +125,7 @@
       "sector": "航運",
       "file": "2609.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "0050.TW",
@@ -134,7 +134,7 @@
       "sector": "ETF",
       "file": "0050.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "0056.TW",
@@ -143,7 +143,7 @@
       "sector": "ETF",
       "file": "0056.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "00878.TW",
@@ -152,7 +152,7 @@
       "sector": "ETF",
       "file": "00878.TW.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "^TWII",
@@ -161,7 +161,7 @@
       "sector": "台股大盤",
       "file": "^TWII.json",
       "start_date": "2021-09-22",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "^DJI",
@@ -223,8 +223,8 @@
       "category": "macro",
       "sector": "匯率",
       "file": "TWD=X.json",
-      "start_date": "2021-09-20",
-      "end_date": "2026-09-18"
+      "start_date": "2021-09-21",
+      "end_date": "2026-09-20"
     },
     {
       "symbol": "CL=F",
@@ -233,7 +233,7 @@
       "sector": "原物料",
       "file": "CL=F.json",
       "start_date": "2021-09-20",
-      "end_date": "2026-09-18"
+      "end_date": "2026-09-20"
     }
   ]
 }
