@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T23:28:25Z",
+  "generated_at": "2026-09-24T23:47:52Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -7,8 +7,8 @@
       "category": "tw_stock",
       "sector": "半導體",
       "file": "2330.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2454.TW",
@@ -16,8 +16,8 @@
       "category": "tw_stock",
       "sector": "半導體",
       "file": "2454.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2317.TW",
@@ -25,8 +25,8 @@
       "category": "tw_stock",
       "sector": "電子代工",
       "file": "2317.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2308.TW",
@@ -34,8 +34,8 @@
       "category": "tw_stock",
       "sector": "電源供應",
       "file": "2308.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2382.TW",
@@ -43,8 +43,8 @@
       "category": "tw_stock",
       "sector": "電子代工",
       "file": "2382.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2412.TW",
@@ -52,8 +52,8 @@
       "category": "tw_stock",
       "sector": "電信",
       "file": "2412.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2881.TW",
@@ -61,8 +61,8 @@
       "category": "tw_stock",
       "sector": "金融",
       "file": "2881.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2882.TW",
@@ -70,8 +70,8 @@
       "category": "tw_stock",
       "sector": "金融",
       "file": "2882.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2891.TW",
@@ -79,8 +79,8 @@
       "category": "tw_stock",
       "sector": "金融",
       "file": "2891.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "3711.TW",
@@ -88,8 +88,8 @@
       "category": "tw_stock",
       "sector": "封測",
       "file": "3711.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2303.TW",
@@ -97,8 +97,8 @@
       "category": "tw_stock",
       "sector": "半導體",
       "file": "2303.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "1301.TW",
@@ -106,8 +106,8 @@
       "category": "tw_stock",
       "sector": "塑化",
       "file": "1301.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2603.TW",
@@ -115,8 +115,8 @@
       "category": "tw_stock",
       "sector": "航運",
       "file": "2603.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "2609.TW",
@@ -124,8 +124,8 @@
       "category": "tw_stock",
       "sector": "航運",
       "file": "2609.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "0050.TW",
@@ -133,8 +133,8 @@
       "category": "tw_stock",
       "sector": "ETF",
       "file": "0050.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-22"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-23"
     },
     {
       "symbol": "0056.TW",
@@ -142,8 +142,8 @@
       "category": "tw_stock",
       "sector": "ETF",
       "file": "0056.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-22"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-23"
     },
     {
       "symbol": "00878.TW",
@@ -151,8 +151,8 @@
       "category": "tw_stock",
       "sector": "ETF",
       "file": "00878.TW.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-22"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-23"
     },
     {
       "symbol": "^TWII",
@@ -160,8 +160,8 @@
       "category": "macro",
       "sector": "台股大盤",
       "file": "^TWII.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-21"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-23"
     },
     {
       "symbol": "^DJI",
@@ -169,8 +169,8 @@
       "category": "macro",
       "sector": "美股",
       "file": "^DJI.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^GSPC",
@@ -178,8 +178,8 @@
       "category": "macro",
       "sector": "美股",
       "file": "^GSPC.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^IXIC",
@@ -187,8 +187,8 @@
       "category": "macro",
       "sector": "美股",
       "file": "^IXIC.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^SOX",
@@ -196,8 +196,8 @@
       "category": "macro",
       "sector": "美股",
       "file": "^SOX.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^KS11",
@@ -206,7 +206,7 @@
       "sector": "亞股",
       "file": "^KS11.json",
       "start_date": "2021-09-23",
-      "end_date": "2026-09-21"
+      "end_date": "2026-09-23"
     },
     {
       "symbol": "TSM",
@@ -214,8 +214,8 @@
       "category": "macro",
       "sector": "美股ADR",
       "file": "TSM.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "TWD=X",
@@ -223,8 +223,8 @@
       "category": "macro",
       "sector": "匯率",
       "file": "TWD=X.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-24"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "CL=F",
@@ -232,8 +232,8 @@
       "category": "macro",
       "sector": "原物料",
       "file": "CL=F.json",
-      "start_date": "2021-09-23",
-      "end_date": "2026-09-23"
+      "start_date": "2021-09-24",
+      "end_date": "2026-09-24"
     }
   ]
 }
