@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T23:47:52Z",
+  "generated_at": "2026-09-25T23:53:41Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -134,7 +134,7 @@
       "sector": "ETF",
       "file": "0050.TW.json",
       "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "0056.TW",
@@ -143,7 +143,7 @@
       "sector": "ETF",
       "file": "0056.TW.json",
       "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "00878.TW",
@@ -152,7 +152,7 @@
       "sector": "ETF",
       "file": "00878.TW.json",
       "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^TWII",
@@ -161,7 +161,7 @@
       "sector": "台股大盤",
       "file": "^TWII.json",
       "start_date": "2021-09-24",
-      "end_date": "2026-09-23"
+      "end_date": "2026-09-24"
     },
     {
       "symbol": "^DJI",
@@ -170,7 +170,7 @@
       "sector": "美股",
       "file": "^DJI.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-24"
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "^GSPC",
@@ -179,7 +179,7 @@
       "sector": "美股",
       "file": "^GSPC.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-24"
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "^IXIC",
@@ -188,7 +188,7 @@
       "sector": "美股",
       "file": "^IXIC.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-24"
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "^SOX",
@@ -197,7 +197,7 @@
       "sector": "美股",
       "file": "^SOX.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-24"
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "^KS11",
@@ -215,7 +215,7 @@
       "sector": "美股ADR",
       "file": "TSM.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-24"
+      "end_date": "2026-09-25"
     },
     {
       "symbol": "TWD=X",
@@ -232,8 +232,8 @@
       "category": "macro",
       "sector": "原物料",
       "file": "CL=F.json",
-      "start_date": "2021-09-24",
-      "end_date": "2026-09-24"
+      "start_date": "2021-09-27",
+      "end_date": "2026-09-25"
     }
   ]
 }
