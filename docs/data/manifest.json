@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T23:25:27Z",
+  "generated_at": "2026-09-27T23:42:52Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -223,8 +223,8 @@
       "category": "macro",
       "sector": "匯率",
       "file": "TWD=X.json",
-      "start_date": "2021-09-27",
-      "end_date": "2026-09-25"
+      "start_date": "2021-09-28",
+      "end_date": "2026-09-28"
     },
     {
       "symbol": "CL=F",
@@ -233,7 +233,7 @@
       "sector": "原物料",
       "file": "CL=F.json",
       "start_date": "2021-09-27",
-      "end_date": "2026-09-25"
+      "end_date": "2026-09-27"
     }
   ]
 }
