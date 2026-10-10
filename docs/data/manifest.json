@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:03:05Z",
+  "generated_at": "2026-10-10T00:34:57Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -134,7 +134,7 @@
       "sector": "ETF",
       "file": "0050.TW.json",
       "start_date": "2021-10-08",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "0056.TW",
@@ -143,7 +143,7 @@
       "sector": "ETF",
       "file": "0056.TW.json",
       "start_date": "2021-10-08",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "00878.TW",
@@ -152,7 +152,7 @@
       "sector": "ETF",
       "file": "00878.TW.json",
       "start_date": "2021-10-08",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "^TWII",
@@ -161,7 +161,7 @@
       "sector": "台股大盤",
       "file": "^TWII.json",
       "start_date": "2021-10-08",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "^DJI",
@@ -170,7 +170,7 @@
       "sector": "美股",
       "file": "^DJI.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-08"
+      "end_date": "2026-10-09"
     },
     {
       "symbol": "^GSPC",
@@ -179,7 +179,7 @@
       "sector": "美股",
       "file": "^GSPC.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-08"
+      "end_date": "2026-10-09"
     },
     {
       "symbol": "^IXIC",
@@ -188,7 +188,7 @@
       "sector": "美股",
       "file": "^IXIC.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-08"
+      "end_date": "2026-10-09"
     },
     {
       "symbol": "^SOX",
@@ -197,7 +197,7 @@
       "sector": "美股",
       "file": "^SOX.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-08"
+      "end_date": "2026-10-09"
     },
     {
       "symbol": "^KS11",
@@ -206,7 +206,7 @@
       "sector": "亞股",
       "file": "^KS11.json",
       "start_date": "2021-10-08",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "TSM",
@@ -215,7 +215,7 @@
       "sector": "美股ADR",
       "file": "TSM.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-07"
+      "end_date": "2026-10-08"
     },
     {
       "symbol": "TWD=X",
@@ -232,8 +232,8 @@
       "category": "macro",
       "sector": "原物料",
       "file": "CL=F.json",
-      "start_date": "2021-10-08",
-      "end_date": "2026-10-08"
+      "start_date": "2021-10-11",
+      "end_date": "2026-10-09"
     }
   ]
 }
