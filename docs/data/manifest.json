@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T00:34:57Z",
+  "generated_at": "2026-10-11T00:09:33Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -215,7 +215,7 @@
       "sector": "美股ADR",
       "file": "TSM.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-08"
+      "end_date": "2026-10-09"
     },
     {
       "symbol": "TWD=X",
@@ -224,7 +224,7 @@
       "sector": "匯率",
       "file": "TWD=X.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-09"
+      "end_date": "2026-10-10"
     },
     {
       "symbol": "CL=F",
