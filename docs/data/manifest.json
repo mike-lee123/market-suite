@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:09:33Z",
+  "generated_at": "2026-10-12T00:18:38Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -205,7 +205,7 @@
       "category": "macro",
       "sector": "亞股",
       "file": "^KS11.json",
-      "start_date": "2021-10-08",
+      "start_date": "2021-10-12",
       "end_date": "2026-10-08"
     },
     {
@@ -223,8 +223,8 @@
       "category": "macro",
       "sector": "匯率",
       "file": "TWD=X.json",
-      "start_date": "2021-10-11",
-      "end_date": "2026-10-10"
+      "start_date": "2021-10-12",
+      "end_date": "2026-10-12"
     },
     {
       "symbol": "CL=F",
@@ -233,7 +233,7 @@
       "sector": "原物料",
       "file": "CL=F.json",
       "start_date": "2021-10-11",
-      "end_date": "2026-10-09"
+      "end_date": "2026-10-11"
     }
   ]
 }
