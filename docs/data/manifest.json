@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T23:19:35Z",
+  "generated_at": "2026-10-17T22:56:52Z",
   "symbols": [
     {
       "symbol": "2330.TW",
@@ -134,7 +134,7 @@
       "sector": "ETF",
       "file": "0050.TW.json",
       "start_date": "2021-10-18",
-      "end_date": "2026-10-15"
+      "end_date": "2026-10-16"
     },
     {
       "symbol": "0056.TW",
@@ -143,7 +143,7 @@
       "sector": "ETF",
       "file": "0056.TW.json",
       "start_date": "2021-10-18",
-      "end_date": "2026-10-15"
+      "end_date": "2026-10-16"
     },
     {
       "symbol": "00878.TW",
@@ -152,7 +152,7 @@
       "sector": "ETF",
       "file": "00878.TW.json",
       "start_date": "2021-10-18",
-      "end_date": "2026-10-15"
+      "end_date": "2026-10-16"
     },
     {
       "symbol": "^TWII",
@@ -161,7 +161,7 @@
       "sector": "台股大盤",
       "file": "^TWII.json",
       "start_date": "2021-10-18",
-      "end_date": "2026-10-15"
+      "end_date": "2026-10-16"
     },
     {
       "symbol": "^DJI",
@@ -206,7 +206,7 @@
       "sector": "亞股",
       "file": "^KS11.json",
       "start_date": "2021-10-18",
-      "end_date": "2026-10-15"
+      "end_date": "2026-10-16"
     },
     {
       "symbol": "TSM",
